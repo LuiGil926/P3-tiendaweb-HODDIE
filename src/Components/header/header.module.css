@@ -12,27 +12,24 @@
   width: 100%;
   z-index: 10;
   user-select: none;
-  animation: header-animation 1s ease-in-out;
+  /* OPTIMIZACIÓN: Usar transform en lugar de animación compleja */
+  animation: header-animation 1s ease-out;
+  /* OPTIMIZACIÓN: Activar aceleración por hardware */
+  will-change: transform, opacity;
+  /* OPTIMIZACIÓN: Crear nuevo contexto de apilamiento */
+  transform: translateZ(0);
 }
 
 @keyframes header-animation {
-    0% {
-        transform: translateY(-120%);
-        opacity: 0;
-    }
-
-    75% {
-    
-        opacity: 0;
-    }
-
-    100% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    
+  0% {
+    transform: translate3d(0, -100%, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
 }
-
 
 .header_title {
   font-size: 2rem;
@@ -46,13 +43,11 @@ a {
 }
 
 .list_container {
-
   display: flex;
   justify-content: space-between;
   gap: 2rem;
   align-items: center;
 }
-
 
 .header_nav ul {
   list-style: none;
@@ -63,6 +58,8 @@ a {
 
 .header_nav ul li a {
   color: #3f3f3f;
+  /* OPTIMIZACIÓN: Transición suave para hover */
+  transition: color 0.2s ease;
 }
 
 .header_right {
@@ -74,6 +71,8 @@ a {
 .header_icon {
   color: #3f3f3f;
   font-size: 1.2rem;
+  /* OPTIMIZACIÓN: Transición suave para hover */
+  transition: color 0.2s ease;
 }
 
 .menu_list_container {
@@ -82,16 +81,20 @@ a {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  position: absolute;
-  top: -120vh;
+  position: fixed;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   padding-bottom: 10rem;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  transition: all 0.5s ease-in-out;
+  z-index: -1;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+  visibility: hidden;
 }
 
 .menu_burger {
@@ -100,6 +103,9 @@ a {
   height: 30px;
   position: relative;
   cursor: pointer;
+  background: transparent;
+  border: none;
+
 }
 
 .menu_burger span {
@@ -109,8 +115,10 @@ a {
   width: 100%;
   background: #000000;
   border-radius: 9px;
-  transition: 0.25s ease-in-out;
-
+  /* OPTIMIZACIÓN: Transición más rápida y suave */
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  /* OPTIMIZACIÓN: Activar aceleración por hardware */
+  will-change: transform, width;
 }
 
 .menu_burger span:nth-child(1) {
@@ -149,29 +157,47 @@ a {
 
 .header_nav_burger ul li a {
   color: #3f3f3f;
+  /* OPTIMIZACIÓN: Transición suave */
+  transition: color 0.2s ease;
 }
 
+/* OPTIMIZACIÓN: Clase mejorada para mostrar menú */
 .show {
-  top: 100%;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* OPTIMIZACIÓN: Remover will-change cuando no se necesita */
+.header_container:not(.animating) {
+  will-change: auto;
+}
+
+.menu_list_container:not(.show) {
+  will-change: auto;
 }
 
 @media screen and (width > 768px) {
-    .menu_list_container {
-        top: -120vh;
-    }
+  .menu_list_container {
+    transform: translateY(-100%);
+    visibility: hidden;
+  }
 }
 
 @media screen and (max-width: 768px) {
+  .header_container {
+    padding: 1rem 5rem;
+  }
 
-    .header_container {
-        padding: 1rem 5rem;
-    }
+  .list_container {
+    display: none;
+  }
 
-    .list_container {
-        display: none;
-    }
-    
-    .menu_burger {
-        display: block;
-    }
+  .menu_burger {
+    display: block;
+  }
+
+  /* OPTIMIZACIÓN: Prevenir scroll horizontal en móviles */
+  .header_container {
+    padding: 1rem 2rem;
+  }
 }

@@ -1,45 +1,58 @@
+/* Variables CSS para valores reutilizables */
+:root {
+  --hero-height: 86.5vh;
+  --max-width: 1200px;
+  --primary-color: #000;
+  --secondary-color: #fff;
+  --text-color: #383838;
+  --text-light: #777;
+  --overlay-dark: rgba(0, 0, 0, 0.3);
+  --overlay-light: rgba(44, 44, 44, 0.5);
+  --transition-base: 0.3s ease;
+  --transition-slow: 0.4s ease;
+  --border-radius-small: 10px;
+  --border-radius-large: 40px;
+  --box-shadow-light: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --box-shadow-dark: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
 .hero_F_container {
   width: 100%;
   margin-top: 100px;
   animation: heroF-animation 0.97s ease-in-out;
+  will-change: margin-top, overflow;
   user-select: none;
 }
 
 @keyframes heroF-animation {
   0% {
-    margin-top: 0px;
+    margin-top: 0;
     overflow: hidden;
   }
-
-  99% {
-    overflow: hidden;
-  }
-
   100% {
     margin-top: 100px;
     overflow: hidden;
   }
 }
 
+/* Sección de presentación */
 .hero_presentation {
   width: 100%;
-  height: 86.5vh;
+  height: var(--hero-height);
   position: relative;
 }
 
 .hero_presentation_img {
-  width: 100%;
-  height: 100%;
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: -1;
   overflow: hidden;
 }
 
 .hero_presentation_img img {
   width: 100%;
-  height: 86.5vh;
+  height: var(--hero-height);
   object-fit: cover;
   object-position: end;
 }
@@ -50,19 +63,20 @@
   left: 20%;
   transform: translate(-30%, -50%);
   text-align: center;
-  color: #fff;
+  color: var(--secondary-color);
   animation: opacity-animation 2.1s ease-in-out;
+  will-change: opacity;
 }
 
 .hero_presentation article h1 {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
   margin-bottom: 0.5rem;
 }
 
 .hero_presentation article b {
   letter-spacing: 0.2em;
-  color: #fff;
+  color: var(--secondary-color);
   font-weight: 800;
 }
 
@@ -81,54 +95,38 @@
   justify-content: center;
   align-items: center;
   animation: opacity-animation 2.1s ease-in-out;
+  will-change: opacity;
 }
 
 .hero_presentation_btn button {
   padding: 1rem 1.2rem;
-  border: 1.5px solid #fff;
+  border: 1.5px solid var(--secondary-color);
   background-color: transparent;
-  color: #fff;
+  color: var(--secondary-color);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.2em;
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  border-radius: 40px;
+  transition: all var(--transition-base);
+  border-radius: var(--border-radius-large);
 }
 
 .hero_presentation_btn button:hover {
-  background-color: #fff;
-  color: #000;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 @keyframes opacity-animation {
-  0% {
-    opacity: 0;
-  }
-
+  0%,
   50% {
     opacity: 0;
   }
-
   100% {
     opacity: 1;
   }
 }
 
-@media screen and (max-width: 768px) {
-  .hero_presentation article {
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .hero_presentation_btn {
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-
+/* Sección de marca */
 .hero_marca {
   width: 100%;
   height: 20px;
@@ -138,7 +136,7 @@
   padding: 1rem;
   gap: 1rem;
   overflow: hidden;
-  background: #000;
+  background: var(--primary-color);
 }
 
 .hero_marca p {
@@ -149,14 +147,15 @@
   color: #f9f9f9b9;
 }
 
+/* Sección de productos */
 .hero_productos {
   width: 100%;
-  height: 86.5vh;
+  height: var(--hero-height);
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1200px;
+  max-width: var(--max-width);
   margin: auto;
 }
 
@@ -172,38 +171,48 @@
 }
 
 .hero_productos_title h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 500;
-  color: #383838;
+  color: var(--text-color);
 }
 
-.hero_productos_title a {
+/* Enlaces con efecto hover reutilizable */
+.hero_productos_title a,
+.hero_about_us_title a {
   font-weight: 500;
-  color: #383838;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: color var(--transition-base);
   position: relative;
 }
 
-.hero_productos_title a::after {
+.hero_productos_title a {
+  color: var(--text-color);
+}
+
+.hero_productos_title a::after,
+.hero_about_us_title a::after {
   content: "";
   position: absolute;
   bottom: -5px;
   left: 0;
   width: 100%;
   height: 2px;
-  background: #141302;
   transform: scaleX(0);
   transform-origin: center;
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-base);
 }
 
-.hero_productos_title a:hover::after {
-  transform: scaleX(1);
+.hero_productos_title a::after {
+  background: #141302;
 }
 
 .hero_productos_title a:hover {
   color: #141302;
+}
+
+.hero_productos_title a:hover::after,
+.hero_about_us_title a:hover::after {
+  transform: scaleX(1);
 }
 
 .hero_productos_btn {
@@ -220,16 +229,16 @@
 .hero_productos_btn button {
   background: #3232321b;
   border: none;
-  padding: 15px 15px;
+  padding: 15px;
   border-radius: 50%;
-  color: rgb(0, 0, 0);
+  color: var(--primary-color);
   cursor: pointer;
   font-size: 1.2rem;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition-base);
 }
 
 .hero_productos_btn button:hover {
@@ -240,10 +249,11 @@
 .hero_productos_list {
   margin-top: 80px;
   display: flex;
-  flex-wrap: Nowrap;
+  flex-wrap: nowrap;
   gap: 10px;
   overflow-x: auto;
   scroll-behavior: smooth;
+  scrollbar-width: none; 
 }
 
 .hero_productos_list::-webkit-scrollbar {
@@ -251,14 +261,16 @@
 }
 
 .hero_productos_item {
-  min-width: 330px;
+  width: 330px;
   min-height: 440px;
   text-decoration: none;
   color: #222;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform var(--transition-base),
+    box-shadow var(--transition-base);
+  flex-shrink: 0;
 }
 
 .hero_productos_item:hover {
@@ -276,11 +288,8 @@
 .hero_producto_img::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(44, 44, 44, 0.5);
+  inset: 0;
+  background: var(--overlay-light);
   z-index: 1;
 }
 
@@ -289,7 +298,7 @@
   height: 400px;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition: transform var(--transition-slow);
 }
 
 .hero_productos_item:hover .hero_producto_img img {
@@ -316,9 +325,10 @@
   color: #333435;
 }
 
+/* Sección About Us */
 .hero_about_us {
   width: 100%;
-  height: 86.5vh;
+  height: var(--hero-height);
   position: relative;
 }
 
@@ -335,9 +345,9 @@
 }
 
 .hero_about_us_title h2 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 500;
-  color: #ffffff;
+  color: var(--secondary-color);
   text-align: center;
   letter-spacing: 0.2em;
 }
@@ -345,7 +355,7 @@
 .hero_about_us_title p {
   font-size: 0.8rem;
   font-weight: 300;
-  color: #ffffff;
+  color: var(--secondary-color);
   margin-bottom: 2rem;
   letter-spacing: 1em;
 }
@@ -358,52 +368,27 @@
 }
 
 .hero_about_us_title a {
-    display: block;
-  font-weight: 500;
-  color: #ffffff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  position: relative;
+  display: block;
+  color: var(--secondary-color);
 }
 
 .hero_about_us_title a::after {
-  content: "";
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: #ffffff;
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
-
-.hero_about_us_title a:hover::after {
-  transform: scaleX(1);
+  background: var(--secondary-color);
 }
 
 .hero_about_us_img {
-  width: 100%;
-  height: 100%;
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   z-index: -1;
   overflow: hidden;
-  background-color: #000000;
-  position: relative;
+  background-color: var(--primary-color);
 }
 
 .hero_about_us_img::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-dark);
 }
 
 .hero_about_us_img img {
@@ -412,16 +397,17 @@
   object-fit: cover;
 }
 
+/* Sección de información */
 .infoSection {
-  max-width: 1200px;
+  max-width: var(--max-width);
   min-height: 350px;
   margin: 0 auto;
   display: grid;
-  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
   padding: 20px;
   align-items: center;
   place-items: center;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 .infoItem {
@@ -432,17 +418,17 @@
   text-align: center;
   gap: 10px;
   width: 100%;
-  height: 250px;    
+  height: 250px;
   padding: 20px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  border-radius: var(--border-radius-small);
+  background-color: var(--secondary-color);
+  box-shadow: var(--box-shadow-light);
+  transition: all var(--transition-base);
 }
 
 .infoItem:hover {
   transform: translateY(-10px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--box-shadow-dark);
 }
 
 .icon {
@@ -457,46 +443,45 @@
 
 .infoItem p {
   font-size: 0.9rem;
-  color: #777;
+  color: var(--text-light);
   margin-bottom: 20px;
 }
 
 .infoItem a {
-    padding: 10px 15px;
-    border: 1px solid #000;
-    background-color: #fff;
-    color: #000;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
-    border-radius: 20px;
+  padding: 10px 15px;
+  border: 1px solid var(--primary-color);
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all var(--transition-base);
+  border-radius: 20px;
 }
 
 .infoItem a:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
-
-
 @media screen and (max-width: 768px) {
-  .hero_about_us_title {
-    top: 50%;
+  .hero_presentation article {
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 
-  .hero_productos_list {
-    margin-top: 170px;
+  .hero_presentation_btn {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero_about_us_title {
+    top: 50%;
   }
 
   .hero_presentation button {
     margin-top: 20px;
-   
   }
-
-
-}   
-
-
+}

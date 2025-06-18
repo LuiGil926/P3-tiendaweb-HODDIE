@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   gap: 80px;
+  /* OPTIMIZACIÓN: Contener layout shifts */
+  contain: layout style;
 }
 
 .aboutIntro {
@@ -13,20 +15,24 @@
   gap: 40px;
   margin: 0 auto;
   align-items: center;
+  /* OPTIMIZACIÓN: Evitar layout shifts */
+  min-height: 600px;
 }
 
 @media screen and (max-width: 768px) {
-    .aboutIntro {
-        flex-direction: column;
-        justify-content: space-between;
-        height: 140vh;
-    }
+  .aboutIntro {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 140vh;
+    min-height: 800px;
+  }
 }
-
 
 .imageBox {
   flex: 1;
   overflow: hidden;
+  /* OPTIMIZACIÓN: Crear contexto de apilamiento para mejor rendimiento */
+  transform: translateZ(0);
 }
 
 .imageBox img {
@@ -34,17 +40,27 @@
   max-height: 86.5vh;
   min-height: 450px;
   object-fit: cover;
+  /* OPTIMIZACIÓN: Mejorar calidad de escalado */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  /* OPTIMIZACIÓN: Lazy loading implícito */
+  content-visibility: auto;
+  contain-intrinsic-size: 450px;
 }
 
 .textBox {
-    flex: 1;
-    padding: 0px 100px;
+  flex: 1;
+  padding: 0px 100px;
+  /* OPTIMIZACIÓN: Contener cambios de layout */
+  contain: layout style;
 }
 
 .textBox h2 {
   font-size: 2.5rem;
   color: #000000;
   margin-bottom: 20px;
+  /* OPTIMIZACIÓN: Mejorar renderizado de texto */
+  text-rendering: optimizeLegibility;
 }
 
 .textBox p {
@@ -52,6 +68,8 @@
   line-height: 1.8;
   color: #494949;
   margin-bottom: 16px;
+  /* OPTIMIZACIÓN: Mejorar renderizado de texto */
+  text-rendering: optimizeSpeed;
 }
 
 .aboutFeatures {
@@ -62,6 +80,8 @@
   align-content: center;
   gap: 10px;
   padding: 0px 20px;
+  /* OPTIMIZACIÓN: Contener layout y paint */
+  contain: layout style paint;
 }
 
 .featureCard {  
@@ -70,7 +90,16 @@
   display: flex;
   flex-direction: column;   
   justify-content: space-between;   
-  align-items: center; 
+  align-items: center;
+  /* OPTIMIZACIÓN: Crear contexto de apilamiento */
+  transform: translateZ(0);
+  /* OPTIMIZACIÓN: Preparar para hover animations */
+  will-change: auto;
+}
+
+/* OPTIMIZACIÓN: Solo activar will-change en hover */
+.featureCard:hover {
+  will-change: transform;
 }
 
 .featureImg {
@@ -78,59 +107,106 @@
   height: 300px;
   position: relative;
   overflow: hidden;
+  /* OPTIMIZACIÓN: Crear contexto de apilamiento */
+  transform: translateZ(0);
+  /* OPTIMIZACIÓN: Preparar para animación de hover */
+  backface-visibility: hidden;
 }
 
 .featureImg:hover img {
-    transform: scale(1.1);
+  transform: scale3d(1.1, 1.1, 1);
 }
-
-
 
 .featureImg::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  /* OPTIMIZACIÓN: Usar transform para overlay */
+  transform: translateZ(0);
+  /* OPTIMIZACIÓN: Evitar repaint del pseudo-elemento */
+  will-change: auto;
 }
 
-
 .featureImg img {
-    transition: all 1s ease-in-out;
+  /* OPTIMIZACIÓN: Transición más rápida y suave */
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   width: 100%;
   height: 300px;
   object-fit: cover;
+  /* OPTIMIZACIÓN: Activar aceleración por hardware */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  /* OPTIMIZACIÓN: Mejorar calidad de escalado */
+  image-rendering: -webkit-optimize-contrast;
+  /* OPTIMIZACIÓN: Lazy loading */
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
 }
 
 .featureImg:nth-child(1) img {
   object-position: top;
 }
 
-
 .featureText {
   text-align: center;
   width: 100%;
   padding: 20px;
+  /* OPTIMIZACIÓN: Contener layout del texto */
+  contain: layout style;
 }   
 
 .featureText h4 {   
-  font-size: 1.2rem;    
+  font-size: 1.2rem;
+  /* OPTIMIZACIÓN: Mejorar renderizado de títulos */
+  text-rendering: optimizeLegibility;
 }   
 
 .featureText p {   
-  font-size: 0.9rem;    
+  font-size: 0.9rem;
+  /* OPTIMIZACIÓN: Renderizado rápido para texto body */
+  text-rendering: optimizeSpeed;
 }   
 
+/* OPTIMIZACIÓN: Resetear will-change cuando no se necesita */
+.featureCard:not(:hover) {
+  will-change: auto;
+}
+
+.featureImg:not(:hover) img {
+  will-change: auto;
+}
 
 @media screen and (max-width: 768px) {
-    .aboutFeatures{
-        height: 850px
-    }
-
-    .aboutFeatures {
-        margin-top: 100px;
-    }
+  .aboutFeatures {
+    height: 850px;
+    margin-top: 100px;
+  }
+  
+  /* OPTIMIZACIÓN: Reducir animaciones en móviles para mejor rendimiento */
+  .featureImg img {
+    transition: transform 0.2s ease-out;
+  }
+  
+  .featureImg:hover img {
+    transform: scale3d(1.05, 1.05, 1);
+  }
+  
+  /* OPTIMIZACIÓN: Padding reducido en móviles */
+  .textBox {
+    padding: 0px 20px;
+  }
+  
+  /* OPTIMIZACIÓN: Tamaños de fuente más eficientes en móviles */
+  .textBox h2 {
+    font-size: 2rem;
+  }
+  
+  .textBox p {
+    font-size: 1rem;
+  }
 }
