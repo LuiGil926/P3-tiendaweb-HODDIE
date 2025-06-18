@@ -17,7 +17,7 @@
 
 @keyframes header-animation {
     0% {
-        transform: translateY(-100%);
+        transform: translateY(-120%);
         opacity: 0;
     }
 
