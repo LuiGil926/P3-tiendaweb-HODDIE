@@ -1,0 +1,502 @@
+.hero_F_container {
+  width: 100%;
+  margin-top: 100px;
+  animation: heroF-animation 0.97s ease-in-out;
+  user-select: none;
+}
+
+@keyframes heroF-animation {
+  0% {
+    margin-top: 0px;
+    overflow: hidden;
+  }
+
+  99% {
+    overflow: hidden;
+  }
+
+  100% {
+    margin-top: 100px;
+    overflow: hidden;
+  }
+}
+
+.hero_presentation {
+  width: 100%;
+  height: 86.5vh;
+  position: relative;
+}
+
+.hero_presentation_img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.hero_presentation_img img {
+  width: 100%;
+  height: 86.5vh;
+  object-fit: cover;
+  object-position: end;
+}
+
+.hero_presentation article {
+  position: absolute;
+  top: 70%;
+  left: 20%;
+  transform: translate(-30%, -50%);
+  text-align: center;
+  color: #fff;
+  animation: opacity-animation 2.1s ease-in-out;
+}
+
+.hero_presentation article h1 {
+  font-size: 3rem;
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.hero_presentation article b {
+  letter-spacing: 0.2em;
+  color: #fff;
+  font-weight: 800;
+}
+
+.hero_presentation article p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 300;
+}
+
+.hero_presentation_btn {
+  position: absolute;
+  top: 40%;
+  left: 84%;
+  transform: translate(-50%, -40%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: opacity-animation 2.1s ease-in-out;
+}
+
+.hero_presentation_btn button {
+  padding: 1rem 1.2rem;
+  border: 1.5px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 40px;
+}
+
+.hero_presentation_btn button:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+@keyframes opacity-animation {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero_presentation article {
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero_presentation_btn {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.hero_marca {
+  width: 100%;
+  height: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding: 1rem;
+  gap: 1rem;
+  overflow: hidden;
+  background: #000;
+}
+
+.hero_marca p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  white-space: nowrap;
+  color: #f9f9f9b9;
+}
+
+.hero_productos {
+  width: 100%;
+  height: 86.5vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.hero_productos_title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  top: 7%;
+  left: 0;
+  padding: 0 20px;
+}
+
+.hero_productos_title h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #383838;
+}
+
+.hero_productos_title a {
+  font-weight: 500;
+  color: #383838;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.hero_productos_title a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #141302;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.hero_productos_title a:hover::after {
+  transform: scaleX(1);
+}
+
+.hero_productos_title a:hover {
+  color: #141302;
+}
+
+.hero_productos_btn {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 117%;
+}
+
+.hero_productos_btn button {
+  background: #3232321b;
+  border: none;
+  padding: 15px 15px;
+  border-radius: 50%;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.hero_productos_btn button:hover {
+  background: #2c3136;
+  color: #f9f9f9b9;
+}
+
+.hero_productos_list {
+  margin-top: 80px;
+  display: flex;
+  flex-wrap: Nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.hero_productos_list::-webkit-scrollbar {
+  display: none;
+}
+
+.hero_productos_item {
+  min-width: 330px;
+  min-height: 440px;
+  text-decoration: none;
+  color: #222;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero_productos_item:hover {
+  transform: translateY(-6px);
+  box-shadow: none;
+}
+
+.hero_producto_img {
+  height: 400px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.hero_producto_img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(44, 44, 44, 0.5);
+  z-index: 1;
+}
+
+.hero_producto_img img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.hero_productos_item:hover .hero_producto_img img {
+  transform: scale(1.05);
+}
+
+.hero_producto_info {
+  padding: 12px 15px;
+  display: flex;
+  gap: 6px;
+}
+
+.hero_producto_info p:first-child {
+  font-weight: 300;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hero_producto_info p:last-child {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #333435;
+}
+
+.hero_about_us {
+  width: 100%;
+  height: 86.5vh;
+  position: relative;
+}
+
+.hero_about_us_title {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.hero_about_us_title h2 {
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: 0.2em;
+}
+
+.hero_about_us_title p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  letter-spacing: 1em;
+}
+
+.hero_about_us_title div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero_about_us_title a {
+    display: block;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.hero_about_us_title a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #ffffff;
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+}
+
+.hero_about_us_title a:hover::after {
+  transform: scaleX(1);
+}
+
+.hero_about_us_img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  background-color: #000000;
+  position: relative;
+}
+
+.hero_about_us_img::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+
+}
+
+.hero_about_us_img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.infoSection {
+  max-width: 1200px;
+  min-height: 350px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 20px;
+  padding: 20px;
+  align-items: center;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.infoItem {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+  width: 100%;
+  height: 250px;    
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.infoItem:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.infoItem h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.infoItem p {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.infoItem a {
+    padding: 10px 15px;
+    border: 1px solid #000;
+    background-color: #fff;
+    color: #000;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    border-radius: 20px;
+}
+
+.infoItem a:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+
+
+@media screen and (max-width: 768px) {
+  .hero_about_us_title {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero_productos_list {
+    margin-top: 170px;
+  }
+
+  .hero_presentation button {
+    margin-top: 20px;
+   
+  }
+
+
+}   
+
+
