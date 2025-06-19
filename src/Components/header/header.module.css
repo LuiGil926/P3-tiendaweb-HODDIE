@@ -115,9 +115,7 @@ a {
   width: 100%;
   background: #000000;
   border-radius: 9px;
-  /* OPTIMIZACIÓN: Transición más rápida y suave */
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  /* OPTIMIZACIÓN: Activar aceleración por hardware */
   will-change: transform, width;
 }
 
