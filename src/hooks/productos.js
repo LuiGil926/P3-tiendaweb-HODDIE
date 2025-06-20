@@ -1,15 +1,8 @@
 const obtenerProductos = async () => {
   try {
-    const urls = [
-      "https://fakestoreapi.com/products/category/men's%20clothing",
-      "https://fakestoreapi.com/products/category/women's%20clothing",
-      "https://fakestoreapi.com/products/category/jewelery"
-    ];
-
-    const respuestas = await Promise.all(urls.map(url => fetch(url)));
-    const data = await Promise.all(respuestas.map(res => res.json()));
-
-    return data.flat();
+    const reponse = await fetch("https://p3-api-newxs.onrender.com/products/");
+    const data = await reponse.json();
+    return data;
   } catch (error) {
     console.error("Error al obtener productos:", error);
     return [];

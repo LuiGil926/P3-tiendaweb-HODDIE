@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from "react";
+import styles from "./header.module.css";
+
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { LuShoppingCart, LuUser } from "react-icons/lu";
-import styles from "./header.module.css";
+import { LoginStatusContext } from "../../context/loginstatu.jsx";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const { loginStatus } = useContext(LoginStatusContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -55,9 +58,15 @@ function Header() {
           <Link to="/cart" aria-label="Ver carrito de compras">
             <LuShoppingCart className={styles.header_icon} />
           </Link>
-          <Link to="/profile" aria-label="Perfil de usuario">
-            <LuUser className={styles.header_icon} />
-          </Link>
+          {loginStatus.status ? (
+            <Link to="/profile" aria-label="Perfil de usuario">
+              <LuUser className={styles.header_icon} />
+            </Link>
+          ) : (
+            <Link to="/login" aria-label="Perfil de usuario">
+              <LuUser className={styles.header_icon} />
+            </Link>
+          )}
         </div>
       </section>
 
@@ -99,9 +108,17 @@ function Header() {
           <Link to="/cart" onClick={handleLinkClick} aria-label="Ver carrito de compras">
             <LuShoppingCart className={styles.header_icon} />
           </Link>
-          <Link to="/profile" onClick={handleLinkClick} aria-label="Perfil de usuario">
-            <LuUser className={styles.header_icon} />
-          </Link>
+          {
+            loginStatus.status ? (
+              <Link to="/profile" onClick={handleLinkClick} aria-label="Perfil de usuario">
+                <LuUser className={styles.header_icon} />
+              </Link>
+            ) : (
+              <Link to="/login" onClick={handleLinkClick} aria-label="Perfil de usuario">
+                <LuUser className={styles.header_icon} />
+              </Link>
+            )
+          }
         </div>
       </section>
     </header>

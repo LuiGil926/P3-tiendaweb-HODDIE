@@ -17,6 +17,7 @@ function Hero() {
     threshold: 0.3,
   });
 
+ 
   // Optimización: useCallback para evitar re-renders innecesarios
   const scrollLeft = useCallback(() => {
     if (listRef.current) {
@@ -36,6 +37,7 @@ function Hero() {
       try {
         const res = await obtenerProductos();
         setProductos(res.slice(0, 6));
+        console.log(res)
       } catch (error) {
         console.error('Error al cargar productos:', error);
         setProductos([]);
@@ -84,7 +86,7 @@ function Hero() {
           <img
             src="https://images.pexels.com/photos/4977270/pexels-photo-4977270.jpeg"
             alt="img-hero-presentation"
-            loading="lazy"
+            loading="eager"
           />
         </div>
 
@@ -109,13 +111,7 @@ function Hero() {
         ))}
       </section>
 
-      <motion.div
-        ref={ref}
-        initial={fadeInUpVariants.initial}
-        animate={inView ? fadeInUpVariants.animate : fadeInUpVariants.initial}
-        transition={fadeInUpVariants.transition}
-        className={styles.hero_productos}
-      >
+      <section className={styles.hero_productos}>
         <div className={styles.hero_productos_title}>
           <h2>Our products</h2>
           <Link to="/products">See all</Link>
@@ -139,27 +135,21 @@ function Hero() {
             >
               <div className={styles.hero_producto_img}>
                 <img 
-                  src={producto.image} 
-                  alt={producto.title}
+                  src={producto.imagen_url} 
+                  alt={producto.nombre}
                   loading="eager"
                 />
               </div>
               <div className={styles.hero_producto_info}>
-                <p>{producto.title}</p>
-                <p>{producto.price}</p>
+                <p>{producto.nombre}</p>
+                <p>{producto.precio}</p>
               </div>
             </Link>
           ))}
         </div>
-      </motion.div>
+      </section>
 
-      <motion.div
-        className={styles.hero_about_us}
-        initial={fadeInUpVariants.initial}
-        whileInView={fadeInUpVariants.animate}
-        transition={fadeInUpVariants.transition}
-        viewport={{ once: false, amount: 0.3 }}
-      >
+      <section className={styles.hero_about_us}>
         <div className={styles.hero_about_us_title}>
           <h2>About us</h2>
           <p>1998</p>
@@ -173,10 +163,10 @@ function Hero() {
           <img
             src="https://images.pexels.com/photos/10856894/pexels-photo-10856894.jpeg"
             alt="img-about-us"
-            loading="eager"
+            loading="lazy"
           />
         </div>
-      </motion.div>
+      </section>
 
       <motion.div 
         className={styles.infoSection}
