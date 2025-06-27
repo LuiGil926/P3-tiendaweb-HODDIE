@@ -8,7 +8,10 @@ import AboutUs from "./Components/about-us/nosotros";
 import Contact from "./Components/contacto/contacto";
 import Productos from "./Components/productos/productos";
 import Login from "./Components/login/login";
-import Perfil from "./Components/perfil/perfil"
+import Perfil from "./Components/perfil/perfil";
+import Register from "./Components/register/register";
+import Cart from "./Components/cart/cart";
+import ScrollToTop from "./Components/scroll/scroll";
 
 function App() {
   return (
@@ -17,6 +20,8 @@ function App() {
         <Region />
         <Header />
 
+        <ScrollToTop />
+
         <Routes>
           <Route path="/" element={<Hero />} />
           <Route path="/about" element={<AboutUs />} />
@@ -24,6 +29,8 @@ function App() {
           <Route path="/products" element={<Productos />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element = {<Perfil />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/cart" element={<Cart />} />
         </Routes>
 
         <Footer />

@@ -1,15 +1,30 @@
 import styles from "./productos.module.css";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import addToCart from "../../hooks/addtocart";
+import { LoginStatusContext } from "../../context/loginstatu.jsx";
 import obtenerProductos from "../../hooks/productos";
 
 function Productos() {
   const [productos, setProductos] = useState([]);
+  const { loginStatus } = useContext(LoginStatusContext);
+  const [vermas, setVermas] = useState(10);
   const [filtros, setFiltros] = useState({
     busqueda: "",
     categoria: "todas",
     precio: 0,
   });
+
+
+  const agregarAlCarrito = async (id, producto_id, cantidad) => {
+    try {
+      console.log(id, producto_id, cantidad);
+      const res =await addToCart(id, producto_id, cantidad);
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     const cargarProductos = async () => {
@@ -20,10 +35,20 @@ function Productos() {
         console.error("Error al cargar productos:", error);
         setProductos([]);
       }
-    };
 
+    };
+    
     cargarProductos();
   }, []);
+  
+  const vermasproductos = () => {
+    if((productos.length - vermas) < 10){
+      setVermas(productos.length);
+    }else{
+      setVermas(vermas + 10);
+    }
+;
+  };
 
   const filtrodeproductos = (productos) => {
     return productos.filter((producto) => {
@@ -39,7 +64,6 @@ function Productos() {
     });
   };
 
-  console.log(filtros);
 
   return (
     <main className={styles.main_productos}>
@@ -101,23 +125,29 @@ function Productos() {
       </section>
 
       <section className={styles.productos_lista}>
-        {filtrodeproductos(productos).map((producto) => (
-          <article key={producto.id} className={styles.producto}>
-            <div className={styles.producto_img}>
-              <img
-                src={producto.imagen_url}
-                alt={producto.nombre}
-                loading="eager"
-              />
-            </div>
-            <div className={styles.producto_info}>
-              <h2 title={producto.nombre}>{producto.nombre}</h2>
-              <p>{producto.precio} $</p>
-              <button>Agregar al carrito</button>
-            </div>
-          </article>
-        ))}
+        {filtrodeproductos(productos)
+          .slice(0, vermas)
+          .map((producto) => (
+            <article key={producto.id} className={styles.producto}>
+              <div className={styles.producto_img}>
+                <img
+                  src={producto.imagen_url}
+                  alt={producto.nombre}
+                  loading="eager"
+                />
+              </div>
+              <div className={styles.producto_info}>
+                <h2 title={producto.nombre}>{producto.nombre}</h2>
+                <p>{producto.precio} $</p>
+                <button onClick={() => agregarAlCarrito(loginStatus.id, producto.id, 1)}>Agregar al carrito</button>
+              </div>
+            </article>
+          ))}
       </section>
+
+      <div className={styles.boton_vermas}>
+        <button  onClick={vermasproductos}>Ver mas</button>
+      </div>
     </main>
   );
 }

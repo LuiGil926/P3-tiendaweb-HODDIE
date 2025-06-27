@@ -99,7 +99,7 @@ function Login() {
           {isSubmitting ? "Iniciando sesión..." : "Entrar"}
         </button>
         <p className={styles.footer}>
-          ¿No tienes cuenta? <Link to={"/registro"}>Registrate</Link>
+          ¿No tienes cuenta? <Link to={"/register"}>Registrate</Link>
         </p>
       </form>
     </div>

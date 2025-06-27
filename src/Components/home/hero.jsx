@@ -37,7 +37,7 @@ function Hero() {
       try {
         const res = await obtenerProductos();
         setProductos(res.slice(0, 6));
-        console.log(res)
+
       } catch (error) {
         console.error('Error al cargar productos:', error);
         setProductos([]);
